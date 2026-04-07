@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alexandra Paula · Data Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #0E9E72;
+    --teal-light: #D6F5EB;
+    --teal-dark: #076349;
+    --ink: #0D1B16;
+    --ink-muted: #4A6358;
+    --ink-faint: #A8C0B8;
+    --surface: #F4FAF7;
+    --white: #FFFFFF;
+    --border: rgba(14,158,114,0.15);
+    --radius: 16px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--surface);
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 48px;
+    background: rgba(244,250,247,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: var(--ink);
+    letter-spacing: -0.3px;
+  }
+  .nav-logo span { color: var(--teal); }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a {
+    font-size: 14px; font-weight: 400; color: var(--ink-muted);
+    text-decoration: none; letter-spacing: 0.2px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--teal); }
+  .nav-cta {
+    background: var(--teal); color: white !important;
+    padding: 8px 20px; border-radius: 99px;
+    font-weight: 500 !important;
+  }
+  .nav-cta:hover { background: var(--teal-dark); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 120px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -120px; right: -80px;
+    width: 560px; height: 560px;
+    background: radial-gradient(circle, rgba(14,158,114,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: 0; left: -60px;
+    width: 380px; height: 380px;
+    background: radial-gradient(circle, rgba(14,158,114,0.07) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.8px;
+    text-transform: uppercase; color: var(--teal-dark);
+    background: var(--teal-light); padding: 6px 16px;
+    border-radius: 99px; margin-bottom: 32px;
+    width: fit-content;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-badge::before {
+    content: ''; width: 7px; height: 7px;
+    background: var(--teal); border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(44px, 7vw, 80px);
+    line-height: 1.05;
+    letter-spacing: -2px;
+    color: var(--ink);
+    margin-bottom: 24px;
+    max-width: 800px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--teal);
+  }
+  .hero-sub {
+    font-size: 17px; font-weight: 300; color: var(--ink-muted);
+    line-height: 1.7; max-width: 520px; margin-bottom: 40px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-btns {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--teal); color: white;
+    padding: 14px 28px; border-radius: 99px;
+    font-size: 15px; font-weight: 500;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--teal-dark); transform: translateY(-1px); }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; color: var(--ink);
+    padding: 14px 28px; border-radius: 99px;
+    font-size: 15px; font-weight: 400;
+    text-decoration: none;
+    border: 1.5px solid rgba(14,158,114,0.3);
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    cursor: pointer;
+  }
+  .btn-outline:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-1px); }
+
+  .hero-stats {
+    display: flex; gap: 40px; margin-top: 64px;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .stat { border-left: 2px solid var(--teal-light); padding-left: 16px; }
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px; color: var(--ink); line-height: 1;
+  }
+  .stat-label { font-size: 12px; color: var(--ink-faint); margin-top: 4px; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 96px 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--teal);
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 4vw, 42px);
+    letter-spacing: -1px; line-height: 1.1;
+    color: var(--ink); margin-bottom: 48px;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .project-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(14,158,114,0.12);
+  }
+  .project-card.featured {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .card-visual {
+    height: 200px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .project-card.featured .card-visual {
+    height: auto; min-height: 260px;
+  }
+  .visual-clima { background: linear-gradient(135deg, #0D3B2E 0%, #0E9E72 100%); }
+  .visual-saude { background: linear-gradient(135deg, #1a1a2e 0%, #4a4a8a 100%); }
+  .visual-economia { background: linear-gradient(135deg, #1C2B1A 0%, #3B6E35 100%); }
+  .visual-edu { background: linear-gradient(135deg, #2B1A1A 0%, #8A5A1A 100%); }
+
+  .card-icon-bg {
+    width: 72px; height: 72px; border-radius: 20px;
+    background: rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .card-live-badge {
+    position: absolute; top: 16px; left: 16px;
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.15); backdrop-filter: blur(8px);
+    padding: 5px 12px; border-radius: 99px;
+    font-size: 11px; font-weight: 500; color: white;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .card-live-badge::before {
+    content: ''; width: 6px; height: 6px;
+    background: #4AE29B; border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  .coming-badge {
+    position: absolute; top: 16px; left: 16px;
+    background: rgba(255,255,255,0.1); backdrop-filter: blur(8px);
+    padding: 5px 12px; border-radius: 99px;
+    font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.6);
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .card-body { padding: 24px; }
+  .card-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+  .tag {
+    font-size: 11px; font-weight: 500; padding: 3px 10px;
+    border-radius: 99px; letter-spacing: 0.3px;
+  }
+  .tag-green { background: var(--teal-light); color: var(--teal-dark); }
+  .tag-blue { background: #E0EEFF; color: #1A4D99; }
+  .tag-purple { background: #EDE8FF; color: #5B3BBB; }
+  .tag-amber { background: #FFF0D6; color: #8A5A00; }
+  .tag-gray { background: #EEF0EC; color: #5A6860; }
+  .card-title { font-size: 17px; font-weight: 500; margin-bottom: 8px; color: var(--ink); }
+  .card-desc { font-size: 14px; color: var(--ink-muted); line-height: 1.6; }
+  .card-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 20px; padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+  .card-api { font-size: 12px; color: var(--ink-faint); }
+  .card-arrow {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--surface); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; color: var(--teal);
+    transition: background 0.2s;
+  }
+  .project-card:hover .card-arrow { background: var(--teal); color: white; }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .skill-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px;
+  }
+  .skill-icon { font-size: 24px; margin-bottom: 12px; }
+  .skill-name { font-size: 15px; font-weight: 500; margin-bottom: 8px; }
+  .skill-level {
+    height: 4px; background: var(--teal-light);
+    border-radius: 99px; overflow: hidden;
+  }
+  .skill-fill {
+    height: 100%; background: var(--teal);
+    border-radius: 99px;
+    transition: width 1s ease;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; align-items: center;
+  }
+  .about-visual {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 40px;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+  }
+  .avatar-ring {
+    width: 96px; height: 96px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif; font-size: 28px; color: white;
+    margin-bottom: 20px;
+    box-shadow: 0 0 0 6px var(--teal-light);
+  }
+  .about-name { font-size: 18px; font-weight: 500; margin-bottom: 4px; }
+  .about-role { font-size: 13px; color: var(--teal); margin-bottom: 20px; }
+  .about-links { display: flex; gap: 12px; }
+  .about-link {
+    padding: 8px 16px; border-radius: 99px;
+    font-size: 13px; font-weight: 500;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    color: var(--ink-muted);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .about-link:hover { border-color: var(--teal); color: var(--teal); }
+  .about-text p { font-size: 15px; color: var(--ink-muted); line-height: 1.8; margin-bottom: 16px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .pill {
+    font-size: 13px; padding: 6px 14px; border-radius: 99px;
+    border: 1px solid var(--border); color: var(--ink-muted);
+    background: var(--white);
+  }
+
+  /* ── CONTACT ── */
+  .contact-box {
+    background: linear-gradient(135deg, #0D3B2E 0%, #0E9E72 100%);
+    border-radius: var(--radius); padding: 64px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 32px;
+  }
+  .contact-box h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px; color: white; letter-spacing: -1px; line-height: 1.1;
+  }
+  .contact-box p { color: rgba(255,255,255,0.7); font-size: 15px; margin-top: 8px; }
+  .btn-white {
+    background: white; color: var(--teal-dark);
+    padding: 14px 28px; border-radius: 99px;
+    font-size: 15px; font-weight: 500;
+    text-decoration: none; white-space: nowrap;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border); padding: 32px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+    font-size: 13px; color: var(--ink-faint);
+  }
+  footer a { color: var(--teal); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 100%; height: 1px;
+    background: var(--border);
+    margin: 0 48px;
+    max-width: calc(100% - 96px);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 24px 60px; }
+    section { padding: 64px 24px; }
+    .project-card.featured { grid-template-columns: 1fr; }
+    .about-grid { grid-template-columns: 1fr; }
+    .contact-box { padding: 40px 28px; }
+    footer { padding: 24px; }
+    .hero-stats { gap: 24px; }
+    .divider { margin: 0 24px; max-width: calc(100% - 48px); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Alexandra<span>.</span></div>
+  <div class="nav-links">
+    <a href="#projetos">Projetos</a>
+    <a href="#skills">Skills</a>
+    <a href="#sobre">Sobre</a>
+    <a href="mailto:seuemail@email.com" class="nav-cta">Contato</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Em transição para dados</div>
+  <h1>Dados que<br><em>contam histórias</em><br>reais</h1>
+  <p class="hero-sub">Analista em formação especializada em visualização de dados com Power BI e Looker Studio — transformando APIs públicas em insights que fazem sentido.</p>
+  <div class="hero-btns">
+    <a href="#projetos" class="btn-primary">Ver projetos →</a>
+    <a href="https://www.linkedin.com/in/alexandra-de-paula-9043652b6/" target="_blank" class="btn-outline">LinkedIn ↗</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">3+</div>
+      <div class="stat-label">Dashboards planejados</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">4</div>
+      <div class="stat-label">APIs públicas</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Dados reais</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- PROJECTS -->
+<section id="projetos">
+  <div class="section-eyebrow">Portfólio</div>
+  <div class="section-title">Projetos com dados reais</div>
+  <div class="projects-grid">
+
+    <!-- FEATURED: Clima -->
+    <a href="#" class="project-card featured">
+      <div class="card-visual visual-clima">
+        <div class="card-live-badge">Ao vivo</div>
+        <div class="card-icon-bg">🌦️</div>
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="tag tag-green">Looker Studio</span>
+          <span class="tag tag-blue">OpenWeather API</span>
+          <span class="tag tag-green">Clima & Ambiente</span>
+        </div>
+        <div class="card-title">Dashboard Climático — OpenWeather</div>
+        <div class="card-desc">Visualização de dados climáticos em tempo real usando a API pública do OpenWeatherMap. Temperatura, umidade, vento e previsão dos próximos dias com atualização automática.</div>
+        <div class="card-footer">
+          <span class="card-api">openweathermap.org/api</span>
+          <div class="card-arrow">→</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Em breve: Saúde -->
+    <div class="project-card">
+      <div class="card-visual visual-saude">
+        <div class="coming-badge">Em breve</div>
+        <div class="card-icon-bg">🏥</div>
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="tag tag-purple">Power BI</span>
+          <span class="tag tag-gray">DATASUS</span>
+        </div>
+        <div class="card-title">Painel de Saúde Pública</div>
+        <div class="card-desc">Indicadores do SUS, leitos hospitalares e cobertura vacinal por estado — dados abertos do DATASUS.</div>
+        <div class="card-footer">
+          <span class="card-api">datasus.saude.gov.br</span>
+          <div class="card-arrow">→</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Em breve: Economia -->
+    <div class="project-card">
+      <div class="card-visual visual-economia">
+        <div class="coming-badge">Em breve</div>
+        <div class="card-icon-bg">📊</div>
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="tag tag-green">Looker Studio</span>
+          <span class="tag tag-gray">IBGE / Banco Central</span>
+        </div>
+        <div class="card-title">Indicadores Econômicos</div>
+        <div class="card-desc">IPCA, SELIC, PIB e desemprego em um painel unificado com dados do IBGE e Banco Central do Brasil.</div>
+        <div class="card-footer">
+          <span class="card-api">api.bcb.gov.br · ibge.gov.br</span>
+          <div class="card-arrow">→</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Em breve: Educação -->
+    <div class="project-card">
+      <div class="card-visual visual-edu">
+        <div class="coming-badge">Em breve</div>
+        <div class="card-icon-bg">📚</div>
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="tag tag-amber">Power BI</span>
+          <span class="tag tag-gray">INEP / MEC</span>
+        </div>
+        <div class="card-title">Atlas da Educação Brasileira</div>
+        <div class="card-desc">Taxas de aprovação, abandono escolar e resultados do ENEM por região — base de dados aberta do INEP.</div>
+        <div class="card-footer">
+          <span class="card-api">dados.inep.gov.br</span>
+          <div class="card-arrow">→</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-eyebrow">Ferramentas</div>
+  <div class="section-title">O que eu uso</div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">📊</div>
+      <div class="skill-name">Power BI</div>
+      <div class="skill-level"><div class="skill-fill" style="width:70%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📈</div>
+      <div class="skill-name">Looker Studio</div>
+      <div class="skill-level"><div class="skill-fill" style="width:75%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🗄️</div>
+      <div class="skill-name">SQL</div>
+      <div class="skill-level"><div class="skill-fill" style="width:55%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📋</div>
+      <div class="skill-name">Excel / Sheets</div>
+      <div class="skill-level"><div class="skill-fill" style="width:80%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🔢</div>
+      <div class="skill-name">DAX</div>
+      <div class="skill-level"><div class="skill-fill" style="width:50%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🔗</div>
+      <div class="skill-name">APIs REST</div>
+      <div class="skill-level"><div class="skill-fill" style="width:60%"></div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ABOUT -->
+<section id="sobre">
+  <div class="section-eyebrow">Sobre</div>
+  <div class="section-title">Quem está por trás<br>dos dashboards</div>
+  <div class="about-grid">
+    <div class="about-visual">
+      <div class="avatar-ring">AP</div>
+      <div class="about-name">Alexandra de Paula</div>
+      <div class="about-role">Analista de Dados · Em formação</div>
+      <div class="about-links">
+        <a href="https://www.linkedin.com/in/alexandra-de-paula-9043652b6/" target="_blank" class="about-link">LinkedIn ↗</a>
+        <a href="https://github.com/Alepaulas" target="_blank" class="about-link">GitHub ↗</a>
+      </div>
+    </div>
+    <div class="about-text">
+      <p>Estou em transição de carreira para a área de dados — um campo onde consigo unir minha curiosidade por padrões e minha vontade de criar coisas que realmente ajudam pessoas a tomar decisões.</p>
+      <p>Meu foco atual é construir dashboards com dados públicos do governo brasileiro e APIs abertas, porque acredito que transparência e visualização andam juntas.</p>
+      <p>Cada projeto aqui é construído com dados 100% reais, sem amostras fictícias.</p>
+      <div class="pills">
+        <span class="pill">Power BI</span>
+        <span class="pill">Looker Studio</span>
+        <span class="pill">SQL</span>
+        <span class="pill">DAX</span>
+        <span class="pill">APIs Públicas</span>
+        <span class="pill">Dados Abertos</span>
+        <span class="pill">Visualização</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section style="padding-top: 0;">
+  <div class="contact-box">
+    <div>
+      <h2>Vamos conversar<br>sobre dados?</h2>
+      <p>Aberta a oportunidades, colaborações e feedbacks.</p>
+    </div>
+    <a href="mailto:seuemail@email.com" class="btn-white">Enviar mensagem →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Alexandra Paula</span>
+  <div style="display:flex; gap:24px;">
+    <a href="https://www.linkedin.com/in/alexandra-de-paula-9043652b6/" target="_blank">LinkedIn</a>
+    <a href="https://github.com/Alepaulas" target="_blank">GitHub</a>
+    <a href="mailto:alexandra.paula@aluno.ufca.edu.br">E-mail</a>
+  </div>
+</footer>
+
+</body>
+</html>
