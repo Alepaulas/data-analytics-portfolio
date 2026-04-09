@@ -3,68 +3,82 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alexandra de Paula · Dados, BI & Automação</title>
+  <title>Alexandra de Paula · Dados, BI e Automação</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #a46c4e;
-      --primary-dark: #7c5039;
-      --primary-soft: #f6ece6;
-      --bg: #fcfaf8;
-      --bg-2: #f7f1ed;
-      --surface: rgba(255,255,255,0.78);
-      --surface-strong: #ffffff;
-      --text: #1f1a17;
-      --text-soft: #685b53;
-      --text-faint: #9c8d84;
-      --border: rgba(164,108,78,0.14);
-      --shadow: 0 24px 70px rgba(60, 39, 27, 0.10);
-      --radius-xl: 30px;
+      --bg: #0b1220;
+      --bg-soft: #111827;
+      --panel: rgba(17, 24, 39, 0.78);
+      --panel-strong: #121a2b;
+      --line: rgba(148, 163, 184, 0.12);
+      --text: #f8fafc;
+      --text-soft: #94a3b8;
+      --text-faint: #64748b;
+      --primary: #a78bfa;
+      --primary-strong: #8b5cf6;
+      --primary-soft: rgba(167, 139, 250, 0.12);
+      --success: #22c55e;
+      --radius-xl: 28px;
       --radius-lg: 22px;
       --radius-md: 16px;
-      --max: 1140px;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.30);
+      --max: 1180px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', sans-serif;
-      color: var(--text);
       background:
-        radial-gradient(circle at 10% 10%, rgba(164,108,78,0.08), transparent 22%),
-        radial-gradient(circle at 90% 0%, rgba(164,108,78,0.09), transparent 20%),
-        linear-gradient(180deg, #fffdfc 0%, var(--bg) 40%, var(--bg-2) 100%);
+        radial-gradient(circle at top left, rgba(59,130,246,0.16), transparent 26%),
+        radial-gradient(circle at 85% 10%, rgba(96,165,250,0.12), transparent 18%),
+        linear-gradient(180deg, #09111d 0%, var(--bg) 40%, #0f172a 100%);
+      color: var(--text);
       overflow-x: hidden;
     }
-    a { text-decoration: none; color: inherit; }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
     .container { width: min(calc(100% - 32px), var(--max)); margin: 0 auto; }
+
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(148,163,184,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148,163,184,0.06) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: radial-gradient(circle at center, black 35%, transparent 85%);
+      pointer-events: none;
+      z-index: 0;
+    }
 
     .blur-orb {
       position: fixed;
-      inset: auto;
-      width: 340px;
-      height: 340px;
+      width: 300px;
+      height: 300px;
       border-radius: 50%;
+      filter: blur(90px);
       pointer-events: none;
-      filter: blur(70px);
-      opacity: .18;
+      opacity: .24;
       z-index: 0;
-      animation: floatOrb 14s ease-in-out infinite;
+      animation: float 14s ease-in-out infinite;
     }
-    .orb-1 { top: 80px; right: -90px; background: #d2a284; }
-    .orb-2 { bottom: 40px; left: -120px; background: #e6c8b7; animation-delay: -6s; }
+    .orb-a { top: 80px; left: -90px; background: rgba(59,130,246,0.55); }
+    .orb-b { bottom: 30px; right: -80px; background: rgba(56,189,248,0.35); animation-delay: -7s; }
 
-    @keyframes floatOrb {
-      0%, 100% { transform: translateY(0) translateX(0) scale(1); }
-      50% { transform: translateY(-18px) translateX(12px) scale(1.05); }
+    @keyframes float {
+      0%,100% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-18px) translateX(10px); }
     }
 
     .reveal {
       opacity: 0;
-      transform: translateY(26px);
-      transition: opacity .7s ease, transform .7s ease;
+      transform: translateY(28px);
+      transition: opacity .75s ease, transform .75s ease;
       transition-delay: var(--delay, 0s);
     }
     .reveal.visible {
@@ -75,10 +89,10 @@
     .nav-wrap {
       position: sticky;
       top: 0;
-      z-index: 50;
-      backdrop-filter: blur(14px);
-      background: rgba(252,250,248,0.78);
-      border-bottom: 1px solid var(--border);
+      z-index: 40;
+      backdrop-filter: blur(18px);
+      background: rgba(8, 13, 23, 0.72);
+      border-bottom: 1px solid var(--line);
     }
     nav {
       min-height: 76px;
@@ -88,39 +102,37 @@
       gap: 20px;
     }
     .logo {
-      font-family: 'Sora', sans-serif;
-      font-size: 1.35rem;
-      letter-spacing: -0.03em;
-      position: relative;
-      z-index: 2;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      font-size: 1.2rem;
     }
     .logo span { color: var(--primary); }
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 26px;
+      gap: 24px;
       color: var(--text-soft);
       font-size: .95rem;
     }
-    .nav-links a { transition: color .2s ease, transform .2s ease; }
-    .nav-links a:hover { color: var(--primary); transform: translateY(-1px); }
-    .nav-btn {
-      padding: 10px 18px;
+    .nav-links a { transition: color .2s ease; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      padding: 10px 16px;
       border-radius: 999px;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: #fff !important;
-      box-shadow: 0 14px 28px rgba(164,108,78,0.18);
-      font-weight: 600;
+      background: var(--primary-strong);
+      color: white !important;
+      font-weight: 700;
+      box-shadow: 0 12px 30px rgba(59,130,246,0.25);
     }
 
+    main, footer { position: relative; z-index: 1; }
+
     .hero {
-      position: relative;
-      padding: 88px 0 54px;
-      z-index: 1;
+      padding: 84px 0 54px;
     }
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.1fr .9fr;
+      grid-template-columns: 1.05fr .95fr;
       gap: 28px;
       align-items: center;
     }
@@ -130,15 +142,14 @@
       gap: 10px;
       padding: 8px 14px;
       border-radius: 999px;
-      background: rgba(255,255,255,.65);
-      border: 1px solid var(--border);
-      color: var(--primary-dark);
+      background: var(--primary-soft);
+      border: 1px solid rgba(96,165,250,0.18);
+      color: #bfdbfe;
       font-size: .78rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: .08em;
       margin-bottom: 20px;
-      box-shadow: 0 8px 18px rgba(60,39,27,0.04);
     }
     .eyebrow::before {
       content: '';
@@ -146,41 +157,25 @@
       height: 8px;
       border-radius: 50%;
       background: var(--primary);
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0%,100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(.85); opacity: .65; }
+      box-shadow: 0 0 18px rgba(96,165,250,.85);
     }
     h1 {
-      font-family: 'Sora', sans-serif;
-      font-size: clamp(3rem, 7vw, 5.6rem);
-      line-height: .95;
-      letter-spacing: -.05em;
-      margin-bottom: 20px;
-      max-width: 700px;
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: .94;
+      letter-spacing: -0.07em;
+      font-weight: 800;
+      max-width: 760px;
+      margin-bottom: 18px;
     }
-    h1 em {
+    .hero-highlight {
       color: var(--primary);
-      font-style: italic;
-      position: relative;
-    }
-    h1 em::after {
-      content: '';
-      position: absolute;
-      left: 4px;
-      right: 2px;
-      bottom: 4px;
-      height: 12px;
-      background: rgba(164,108,78,0.16);
-      z-index: -1;
-      border-radius: 999px;
+      display: inline-block;
     }
     .hero-sub {
-      max-width: 640px;
+      max-width: 660px;
+      color: var(--text-soft);
       font-size: 1.06rem;
       line-height: 1.85;
-      color: var(--text-soft);
       margin-bottom: 28px;
     }
     .hero-actions {
@@ -191,57 +186,53 @@
     }
     .btn {
       min-height: 48px;
-      padding: 0 20px;
-      border-radius: 999px;
+      padding: 0 18px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      font-weight: 600;
-      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease, color .22s ease;
+      border-radius: 999px;
+      font-weight: 700;
       border: 1px solid transparent;
-      will-change: transform;
+      transition: transform .22s ease, border-color .22s ease, background .22s ease;
     }
     .btn:hover { transform: translateY(-2px); }
     .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      background: linear-gradient(135deg, #2563eb, #60a5fa);
       color: white;
-      box-shadow: 0 14px 30px rgba(164,108,78,0.22);
+      box-shadow: 0 18px 34px rgba(37,99,235,0.26);
     }
     .btn-secondary {
-      background: rgba(255,255,255,.72);
+      background: rgba(15, 23, 42, 0.72);
+      border-color: rgba(148,163,184,0.16);
       color: var(--text);
-      border-color: var(--border);
-      backdrop-filter: blur(10px);
     }
     .btn-secondary:hover {
-      border-color: rgba(164,108,78,.35);
-      color: var(--primary-dark);
+      border-color: rgba(96,165,250,0.38);
+      background: rgba(15,23,42,0.9);
     }
 
-    .hero-mini {
+    .hero-points {
       display: grid;
       grid-template-columns: repeat(3, minmax(0,1fr));
       gap: 14px;
-      max-width: 690px;
+      max-width: 720px;
     }
-    .mini-card,
-    .glass-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      backdrop-filter: blur(14px);
+    .mini-card, .glass-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(16px);
       box-shadow: var(--shadow);
     }
     .mini-card {
       border-radius: var(--radius-md);
       padding: 18px;
-      transition: transform .25s ease, box-shadow .25s ease;
     }
-    .mini-card:hover { transform: translateY(-4px); }
     .mini-card strong {
       display: block;
       margin-bottom: 6px;
       font-size: 1rem;
+      color: var(--text);
     }
     .mini-card span {
       color: var(--text-soft);
@@ -252,22 +243,24 @@
     .hero-panel {
       border-radius: var(--radius-xl);
       padding: 24px;
-      position: relative;
       overflow: hidden;
+      position: relative;
     }
     .hero-panel::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(145deg, rgba(255,255,255,.28), rgba(255,255,255,.05));
+      background: linear-gradient(145deg, rgba(96,165,250,0.08), rgba(15,23,42,0));
       pointer-events: none;
     }
-    .panel-label {
+    .panel-chip {
       display: inline-flex;
+      align-items: center;
+      gap: 8px;
       padding: 7px 12px;
       border-radius: 999px;
-      background: var(--primary-soft);
-      color: var(--primary-dark);
+      background: rgba(96,165,250,0.12);
+      color: #bfdbfe;
       font-size: .78rem;
       font-weight: 700;
       margin-bottom: 16px;
@@ -275,139 +268,117 @@
       z-index: 1;
     }
     .hero-panel h3 {
-      font-size: 1.16rem;
+      font-size: 1.18rem;
+      font-weight: 700;
       margin-bottom: 10px;
       position: relative;
       z-index: 1;
     }
     .hero-panel p {
       color: var(--text-soft);
+      font-size: .95rem;
       line-height: 1.75;
       margin-bottom: 18px;
-      font-size: .95rem;
       position: relative;
       z-index: 1;
     }
-    .panel-list {
+    .metric-list {
       display: grid;
       gap: 12px;
       position: relative;
       z-index: 1;
     }
-    .panel-item {
-      background: rgba(255,255,255,.72);
-      border: 1px solid var(--border);
+    .metric-item {
+      background: rgba(8, 13, 23, 0.56);
+      border: 1px solid var(--line);
       border-radius: 18px;
-      padding: 14px 15px;
+      padding: 14px;
     }
-    .panel-item strong { display: block; margin-bottom: 5px; font-size: .93rem; }
-    .panel-item span { color: var(--text-soft); font-size: .88rem; line-height: 1.55; }
+    .metric-item strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: .95rem;
+    }
+    .metric-item span {
+      color: var(--text-soft);
+      font-size: .88rem;
+      line-height: 1.55;
+    }
 
     section {
-      padding: 34px 0 82px;
-      position: relative;
-      z-index: 1;
+      padding: 36px 0 82px;
     }
     .section-top { margin-bottom: 28px; }
     .section-kicker {
       color: var(--primary);
+      font-size: .78rem;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: .12em;
-      font-weight: 700;
-      font-size: .78rem;
       margin-bottom: 10px;
     }
     .section-title {
-      font-family: 'Sora', sans-serif;
       font-size: clamp(2rem, 4vw, 3rem);
-      letter-spacing: -.04em;
-      line-height: 1.04;
+      line-height: 1.02;
+      font-weight: 800;
+      letter-spacing: -0.05em;
       margin-bottom: 10px;
     }
     .section-desc {
       max-width: 720px;
-      line-height: 1.75;
       color: var(--text-soft);
+      line-height: 1.75;
     }
 
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 20px;
-    }
-    .project-card {
-      grid-column: span 4;
-      border-radius: 24px;
+    .featured-project {
+      border-radius: 30px;
       overflow: hidden;
-      transition: transform .25s ease, box-shadow .25s ease;
+      background: linear-gradient(135deg, rgba(17,24,39,0.92), rgba(11,18,32,0.92));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
     }
-    .project-card:hover { transform: translateY(-5px); box-shadow: 0 22px 40px rgba(60,39,27,.12); }
-    .project-featured {
-      grid-column: span 12;
+    .featured-grid {
       display: grid;
-      grid-template-columns: 1fr 1.1fr;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 0;
     }
-    .project-visual {
-      min-height: 260px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .project-media {
+      padding: 26px;
+      background: linear-gradient(180deg, rgba(59,130,246,0.09), rgba(2,6,23,0));
       position: relative;
-      padding: 24px;
-      overflow: hidden;
     }
-    .project-visual::after {
-      content: '';
+    .project-badge {
       position: absolute;
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.12);
-      top: -40px;
-      right: -35px;
-    }
-    .bg-1 { background: linear-gradient(135deg, #5f3b29 0%, #a46c4e 100%); }
-    .bg-2 { background: linear-gradient(135deg, #614838 0%, #8f6c58 100%); }
-    .bg-3 { background: linear-gradient(135deg, #785745 0%, #b58d73 100%); }
-    .bg-4 { background: linear-gradient(135deg, #8d664e 0%, #cb9f84 100%); }
-    .project-icon {
-      width: 94px;
-      height: 94px;
-      border-radius: 26px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255,255,255,.14);
-      border: 1px solid rgba(255,255,255,.16);
-      color: #fff;
-      font-size: 2.25rem;
-      position: relative;
-      z-index: 1;
-      animation: bob 4s ease-in-out infinite;
-    }
-    @keyframes bob {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-    .floating-badge {
-      position: absolute;
-      top: 18px;
-      left: 18px;
+      top: 20px;
+      left: 20px;
       padding: 7px 12px;
       border-radius: 999px;
-      background: rgba(255,255,255,.14);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,.16);
-      backdrop-filter: blur(8px);
+      background: rgba(59,130,246,0.16);
+      border: 1px solid rgba(96,165,250,0.18);
+      color: #dbeafe;
       font-size: .76rem;
       font-weight: 700;
-      z-index: 1;
+      z-index: 2;
     }
-    .project-body {
-      padding: 24px;
+    .project-image-shell {
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(148,163,184,0.14);
+      background: #0f172a;
+      box-shadow: 0 24px 50px rgba(0,0,0,0.34);
+      min-height: 100%;
+    }
+    .project-image-shell img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .project-content {
+      padding: 28px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      gap: 20px;
     }
     .tags {
       display: flex;
@@ -418,172 +389,221 @@
     .tag {
       padding: 6px 10px;
       border-radius: 999px;
-      font-size: .75rem;
+      font-size: .74rem;
       font-weight: 700;
+      border: 1px solid rgba(148,163,184,0.12);
     }
-    .tag-main { background: var(--primary-soft); color: var(--primary-dark); }
-    .tag-soft { background: #f4eeea; color: #7f6759; }
-    .tag-light { background: #faf6f3; color: #a0887b; }
-    .project-title { font-size: 1.12rem; font-weight: 700; margin-bottom: 10px; }
-    .project-desc { color: var(--text-soft); font-size: .95rem; line-height: 1.72; margin-bottom: 18px; }
-    .story-box {
-      background: linear-gradient(180deg, rgba(246,236,230,.85), rgba(255,255,255,.85));
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 14px;
+    .tag-blue { background: rgba(59,130,246,0.12); color: #bfdbfe; }
+    .tag-dark { background: rgba(15,23,42,0.9); color: #cbd5e1; }
+    .tag-soft { background: rgba(148,163,184,0.08); color: #cbd5e1; }
+    .project-title {
+      font-size: 1.45rem;
+      line-height: 1.1;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin-bottom: 12px;
+    }
+    .project-desc {
+      color: var(--text-soft);
+      line-height: 1.8;
+      font-size: .96rem;
+    }
+    .story-grid {
       display: grid;
       gap: 10px;
     }
-    .story-item { font-size: .88rem; color: var(--text-soft); line-height: 1.55; }
-    .story-item strong { color: var(--text); }
-    .project-footer {
-      margin-top: 18px;
-      padding-top: 16px;
-      border-top: 1px solid var(--border);
+    .story-card {
+      background: rgba(15,23,42,0.78);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px;
+    }
+    .story-card strong {
+      display: block;
+      font-size: .82rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 6px;
+      color: var(--primary);
+    }
+    .story-card span {
+      color: var(--text-soft);
+      font-size: .9rem;
+      line-height: 1.6;
+    }
+    .project-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 18px;
+      margin-top: 22px;
+    }
+    .project-card {
+      border-radius: 24px;
+      padding: 22px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      transition: transform .22s ease, border-color .22s ease;
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(96,165,250,0.28);
+    }
+    .project-card .card-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 14px;
+      margin-bottom: 14px;
     }
-    .project-footer span { color: var(--text-faint); font-size: .82rem; }
-    .arrow {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--primary-soft);
-      border: 1px solid var(--border);
-      color: var(--primary-dark);
-      transition: transform .2s ease;
+    .icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(59,130,246,0.12);
+      color: var(--primary);
+      display: grid;
+      place-items: center;
+      font-size: 1.2rem;
+      border: 1px solid rgba(96,165,250,0.18);
     }
-    .project-card:hover .arrow { transform: translateX(2px); }
+    .project-card h3 {
+      font-size: 1.04rem;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 10px;
+    }
+    .project-card p {
+      color: var(--text-soft);
+      line-height: 1.72;
+      font-size: .94rem;
+    }
 
-    .highlights-grid,
+    .feature-grid,
     .skills-grid,
     .about-grid {
       display: grid;
       gap: 18px;
     }
-    .highlights-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .feature-grid,
     .skills-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
-    .about-grid { grid-template-columns: .9fr 1.1fr; gap: 24px; align-items: start; }
+    .about-grid { grid-template-columns: .9fr 1.1fr; align-items: start; }
 
-    .highlight-card,
+    .feature-card,
     .skill-card,
     .profile-card,
     .about-card,
-    .cta-box,
-    .project-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      backdrop-filter: blur(14px);
-      box-shadow: var(--shadow);
-    }
-
-    .highlight-card,
-    .skill-card,
-    .profile-card,
-    .about-card {
-      border-radius: 22px;
+    .cta-box {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 24px;
       padding: 22px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
     }
-    .highlight-card h3,
-    .skill-card strong { margin-bottom: 10px; display: block; font-size: 1rem; }
-    .highlight-card p,
+    .feature-card h3,
+    .skill-card strong {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    .feature-card p,
     .skill-card p,
     .about-card p {
       color: var(--text-soft);
-      line-height: 1.76;
+      line-height: 1.75;
       font-size: .94rem;
     }
 
-    .avatar {
-      width: 98px;
-      height: 98px;
-      border-radius: 50%;
+    .profile-avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #1d4ed8, #60a5fa);
+      color: white;
       display: grid;
       place-items: center;
-      font-family: 'Sora', sans-serif;
-      font-size: 2rem;
-      color: #fff;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      box-shadow: 0 0 0 8px rgba(246,236,230,.9);
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin-bottom: 18px;
+      box-shadow: 0 18px 34px rgba(37,99,235,0.28);
+    }
+    .profile-card h3 {
+      font-size: 1.18rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+    }
+    .profile-role {
+      color: var(--primary);
+      font-size: .95rem;
+      font-weight: 600;
       margin-bottom: 18px;
     }
-    .profile-card h3 { font-size: 1.16rem; margin-bottom: 4px; }
-    .profile-role { color: var(--primary-dark); font-weight: 600; margin-bottom: 18px; font-size: .95rem; }
     .profile-links,
     .pill-wrap {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
     }
-    .chip-link,
+    .chip,
     .pill {
       padding: 10px 14px;
       border-radius: 999px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.62);
+      border: 1px solid var(--line);
+      background: rgba(15,23,42,0.72);
       color: var(--text-soft);
       font-size: .88rem;
       font-weight: 600;
-      transition: border-color .2s ease, color .2s ease, transform .2s ease;
+      transition: border-color .2s ease, color .2s ease;
     }
-    .chip-link:hover { border-color: rgba(164,108,78,.35); color: var(--primary-dark); transform: translateY(-1px); }
+    .chip:hover {
+      border-color: rgba(96,165,250,0.28);
+      color: var(--text);
+    }
     .about-card p + p { margin-top: 14px; }
     .pill-wrap { margin-top: 18px; }
 
     .cta-box {
-      border-radius: 30px;
-      padding: 42px 34px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
       gap: 20px;
-      background: linear-gradient(135deg, rgba(96,61,42,.94), rgba(164,108,78,.96));
-      color: white;
-      overflow: hidden;
-      position: relative;
-    }
-    .cta-box::after {
-      content: '';
-      position: absolute;
-      width: 260px;
-      height: 260px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.08);
-      right: -70px;
-      bottom: -100px;
+      flex-wrap: wrap;
+      padding: 30px;
+      background: linear-gradient(135deg, rgba(29,78,216,0.24), rgba(15,23,42,0.92));
     }
     .cta-box h2 {
-      font-family: 'Sora', sans-serif;
-      font-size: clamp(2rem, 3vw, 2.8rem);
-      line-height: 1.04;
-      letter-spacing: -.03em;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+      font-weight: 800;
       margin-bottom: 8px;
-      max-width: 620px;
-      position: relative;
-      z-index: 1;
+      max-width: 680px;
     }
     .cta-box p {
-      color: rgba(255,255,255,.82);
-      line-height: 1.72;
+      color: var(--text-soft);
+      line-height: 1.75;
       max-width: 620px;
-      position: relative;
-      z-index: 1;
-    }
-    .btn-light {
-      background: white;
-      color: var(--primary-dark);
-      position: relative;
-      z-index: 1;
     }
 
-    footer { padding: 34px 0 50px; position: relative; z-index: 1; }
-    .footer-line { height: 1px; background: var(--border); margin-bottom: 24px; }
+    footer {
+      padding: 34px 0 50px;
+    }
+    .footer-line {
+      height: 1px;
+      background: var(--line);
+      margin-bottom: 24px;
+    }
     .footer-content {
       display: flex;
       align-items: center;
@@ -593,45 +613,52 @@
       color: var(--text-faint);
       font-size: .92rem;
     }
-    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
-    .footer-links a { color: var(--primary-dark); font-weight: 600; }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+    .footer-links a {
+      color: var(--text-soft);
+      font-weight: 600;
+    }
 
     @media (max-width: 980px) {
       .hero-grid,
-      .project-featured,
-      .highlights-grid,
+      .featured-grid,
+      .feature-grid,
       .skills-grid,
-      .about-grid {
+      .about-grid,
+      .projects-grid {
         grid-template-columns: 1fr;
       }
-      .project-card,
-      .project-featured { grid-column: span 12; }
     }
 
     @media (max-width: 760px) {
-      .nav-links a:not(.nav-btn) { display: none; }
+      .nav-links a:not(.nav-cta) { display: none; }
       .hero { padding: 68px 0 38px; }
-      .hero-mini { grid-template-columns: 1fr; }
+      .hero-points { grid-template-columns: 1fr; }
       section { padding: 24px 0 62px; }
-      .cta-box { padding: 30px 22px; }
+      .cta-box { padding: 24px; }
       .container { width: min(calc(100% - 24px), var(--max)); }
     }
   </style>
 </head>
 <body>
-  <div class="blur-orb orb-1"></div>
-  <div class="blur-orb orb-2"></div>
+  <div class="grid-bg"></div>
+  <div class="blur-orb orb-a"></div>
+  <div class="blur-orb orb-b"></div>
 
   <div class="nav-wrap">
     <div class="container">
       <nav>
-        <a href="#" class="logo">Alexandra<span>.</span></a>
+        <a href="#" class="logo">Alexandra de Paula</a>
         <div class="nav-links">
           <a href="#projetos">Projetos</a>
-          <a href="#destaques">Destaques</a>
+          <a href="#diferenciais">Diferenciais</a>
           <a href="#skills">Skills</a>
           <a href="#sobre">Sobre</a>
-          <a href="mailto:alexandra.paula@aluno.ufca.edu.br" class="nav-btn">Contato</a>
+          <a href="mailto:alexandra.paula@aluno.ufca.edu.br" class="nav-cta">Contato</a>
         </div>
       </nav>
     </div>
@@ -641,51 +668,52 @@
     <section class="hero">
       <div class="container">
         <div class="hero-grid">
-          <div class="reveal" style="--delay:.05s;">
+          <div class="reveal">
             <div class="eyebrow">Dados • BI • Automação</div>
-            <h1>Transformo dados em <em>soluções úteis</em></h1>
+            <h1>Transformo dados em <span class="hero-highlight">decisões</span> mais inteligentes</h1>
             <p class="hero-sub">
-              Atuo com automação de processos, dashboards e organização de informações para apoiar decisões com mais clareza, eficiência e visão operacional.
+              Desenvolvo dashboards, automações e estruturas de dados com foco em clareza, eficiência operacional e apoio real à tomada de decisão.
             </p>
             <div class="hero-actions">
               <a href="#projetos" class="btn btn-primary">Ver projetos</a>
-              <a href="https://www.linkedin.com/in/alexandra-de-paula-9043652b6/" target="_blank" class="btn btn-secondary">LinkedIn ↗</a>
               <a href="https://github.com/Alepaulas" target="_blank" class="btn btn-secondary">GitHub ↗</a>
+              <a href="https://www.linkedin.com/in/alexandra-de-paula-9043652b6/" target="_blank" class="btn btn-secondary">LinkedIn ↗</a>
+              <a href="mailto:alexandra.paula@aluno.ufca.edu.br" class="btn btn-secondary">E-mail ↗</a>
             </div>
-            <div class="hero-mini">
+            <div class="hero-points">
               <div class="mini-card">
-                <strong>Automação</strong>
-                <span>Rotinas mais organizadas e menos trabalho manual.</span>
+                <strong>Automação útil</strong>
+                <span>Menos retrabalho, mais padronização e mais fluidez nas rotinas.</span>
               </div>
               <div class="mini-card">
-                <strong>Dashboards</strong>
-                <span>Indicadores com leitura clara para gestão.</span>
+                <strong>Visual claro</strong>
+                <span>Indicadores que fazem sentido e ajudam a decidir mais rápido.</span>
               </div>
               <div class="mini-card">
                 <strong>Aplicação real</strong>
-                <span>Projetos pensados para uso no dia a dia.</span>
+                <span>Projetos pensados para uso prático, não só para vitrine.</span>
               </div>
             </div>
           </div>
 
-          <aside class="hero-panel glass-card reveal" style="--delay:.16s;">
-            <div class="panel-label">Perfil profissional</div>
-            <h3>Da organização ao insight</h3>
+          <aside class="hero-panel glass-card reveal" style="--delay:.12s;">
+            <div class="panel-chip">Visão profissional</div>
+            <h3>Dados com estrutura, contexto e resultado</h3>
             <p>
-              Minha atuação reúne análise, estruturação de dados, melhoria de processos e construção de soluções visuais com foco em utilidade prática.
+              Minha atuação combina melhoria de processos, análise de dados e construção de soluções visuais para transformar informação em ação.
             </p>
-            <div class="panel-list">
-              <div class="panel-item">
+            <div class="metric-list">
+              <div class="metric-item">
                 <strong>Ferramentas</strong>
                 <span>Power BI, Looker Studio, Google Sheets, Apps Script e SQL.</span>
               </div>
-              <div class="panel-item">
+              <div class="metric-item">
                 <strong>Foco</strong>
-                <span>Automação, indicadores e apoio à tomada de decisão.</span>
+                <span>Automação, dashboards, indicadores e apoio à gestão.</span>
               </div>
-              <div class="panel-item">
-                <strong>Estilo de entrega</strong>
-                <span>Soluções organizadas, funcionais e com boa apresentação visual.</span>
+              <div class="metric-item">
+                <strong>Entrega</strong>
+                <span>Soluções funcionais, limpas e com leitura rápida para o dia a dia.</span>
               </div>
             </div>
           </aside>
@@ -696,140 +724,99 @@
     <section id="projetos">
       <div class="container">
         <div class="section-top reveal">
-          <div class="section-kicker">Portfólio</div>
-          <h2 class="section-title">Projetos com contexto real</h2>
+          <div class="section-kicker">Projeto em destaque</div>
+          <h2 class="section-title">Portfólio com cara de produto</h2>
           <p class="section-desc">
-            Casos voltados à organização de dados, automação de rotinas e construção de dashboards para acompanhamento e apoio à gestão.
+            Projetos desenvolvidos para resolver problemas reais com visual limpo, contexto claro e foco em valor para operação e gestão.
           </p>
         </div>
 
-        <div class="projects-grid">
-          <a href="SEU_LINK_AQUI" target="_blank" class="project-card project-featured reveal">
-            <div class="project-visual bg-1">
-              <div class="floating-badge">Projeto em destaque</div>
-              <div class="project-icon">⚙️</div>
-            </div>
-            <div class="project-body">
-              <div>
-                <div class="tags">
-                  <span class="tag tag-main">Apps Script</span>
-                  <span class="tag tag-soft">Google Sheets</span>
-                  <span class="tag tag-light">Looker Studio</span>
-                </div>
-                <div class="project-title">Sistema de Gestão de Contratos</div>
-                <div class="project-desc">
-                  Solução interna voltada à centralização de informações contratuais, com automação de alertas, apoio visual por dashboards e melhor acompanhamento de prazos.
-                </div>
-                <div class="story-box">
-                  <div class="story-item"><strong>Desafio:</strong> informações dispersas, controle manual e dificuldade de acompanhamento.</div>
-                  <div class="story-item"><strong>Solução:</strong> estrutura centralizada com automações, alertas e visão consolidada.</div>
-                  <div class="story-item"><strong>Resultado:</strong> mais organização, menos retrabalho e melhor suporte à gestão.</div>
-                </div>
-              </div>
-              <div class="project-footer">
-                <span>Automação • Indicadores • Gestão</span>
-                <div class="arrow">→</div>
+        <div class="featured-project reveal">
+          <div class="featured-grid">
+            <div class="project-media">
+              <div class="project-badge">Power BI • Case real</div>
+              <div class="project-image-shell">
+                <img src="dashboard.png" alt="Dashboard de análise climática no Power BI">
               </div>
             </div>
-          </a>
 
-          <a href="SEU_LINK_AQUI" target="_blank" class="project-card reveal" style="--delay:.06s;">
-            <div class="project-visual bg-2">
-              <div class="floating-badge">Dashboard</div>
-              <div class="project-icon">🌦️</div>
-            </div>
-            <div class="project-body">
+            <div class="project-content">
               <div>
                 <div class="tags">
-                  <span class="tag tag-main">API</span>
-                  <span class="tag tag-soft">Looker Studio</span>
-                  <span class="tag tag-light">Tempo real</span>
+                  <span class="tag tag-blue">Power BI</span>
+                  <span class="tag tag-dark">Análise de dados</span>
+                  <span class="tag tag-soft">Dashboard interativo</span>
                 </div>
-                <div class="project-title">Dashboard Climático</div>
+                <div class="project-title">Análise Climática — Nordeste do Brasil</div>
                 <div class="project-desc">
-                  Visualização de dados climáticos em tempo real, reunindo temperatura, umidade, vento e previsão em uma leitura simples.
-                </div>
-                <div class="story-box">
-                  <div class="story-item"><strong>Desafio:</strong> dados pouco organizados para consulta rápida.</div>
-                  <div class="story-item"><strong>Solução:</strong> integração com API pública e painel visual.</div>
-                  <div class="story-item"><strong>Resultado:</strong> consulta centralizada e leitura mais intuitiva.</div>
+                  Dashboard interativo criado para comparar indicadores climáticos entre cidades do Nordeste, com KPIs, ranking, mapa, linha temporal e insight analítico.
                 </div>
               </div>
-              <div class="project-footer">
-                <span>Dados em tempo real</span>
-                <div class="arrow">→</div>
-              </div>
-            </div>
-          </a>
 
-          <div class="project-card reveal" style="--delay:.12s;">
-            <div class="project-visual bg-3">
-              <div class="floating-badge">Em evolução</div>
-              <div class="project-icon">🏥</div>
-            </div>
-            <div class="project-body">
-              <div>
-                <div class="tags">
-                  <span class="tag tag-main">Power BI</span>
-                  <span class="tag tag-soft">Saúde</span>
+              <div class="story-grid">
+                <div class="story-card">
+                  <strong>Desafio</strong>
+                  <span>Consolidar informações climáticas de diferentes cidades em uma leitura comparativa e simples.</span>
                 </div>
-                <div class="project-title">Painel de Indicadores em Saúde</div>
-                <div class="project-desc">
-                  Estrutura para acompanhamento de indicadores assistenciais e operacionais com foco em leitura clara e monitoramento.
+                <div class="story-card">
+                  <strong>Solução</strong>
+                  <span>Estruturação de um dashboard visual com métricas principais, comparação entre cidades e análise complementar.</span>
+                </div>
+                <div class="story-card">
+                  <strong>Resultado</strong>
+                  <span>Visualização rápida dos padrões climáticos e melhor compreensão das diferenças entre os cenários analisados.</span>
                 </div>
               </div>
-              <div class="project-footer">
-                <span>Indicadores e acompanhamento</span>
-                <div class="arrow">→</div>
+
+              <div class="project-actions">
+                <a href="https://app.powerbi.com/links/EYb5QuVuTl?ctid=908c7dda-c74d-40de-947a-c8dd7f70524e&pbi_source=linkShare" target="_blank" class="btn btn-primary">Ver no Power BI</a>
+                <a href="https://github.com/Alepaulas/data-analytics-portfolio" target="_blank" class="btn btn-secondary">Ver no GitHub</a>
               </div>
             </div>
           </div>
+        </div>
 
-          <div class="project-card reveal" style="--delay:.18s;">
-            <div class="project-visual bg-4">
-              <div class="floating-badge">Em evolução</div>
-              <div class="project-icon">📊</div>
+        <div class="projects-grid">
+          <div class="project-card reveal">
+            <div class="card-top">
+              <div class="icon-box">⚙️</div>
+              <span class="tag tag-blue">Automação</span>
             </div>
-            <div class="project-body">
-              <div>
-                <div class="tags">
-                  <span class="tag tag-main">Análise</span>
-                  <span class="tag tag-soft">Power BI</span>
-                </div>
-                <div class="project-title">Indicadores Econômicos e Operacionais</div>
-                <div class="project-desc">
-                  Organização de métricas e visualizações comparativas para facilitar leitura de cenário e apoio à decisão.
-                </div>
-              </div>
-              <div class="project-footer">
-                <span>Métricas consolidadas</span>
-                <div class="arrow">→</div>
-              </div>
+            <h3>Sistema de Gestão de Contratos</h3>
+            <p>Projeto voltado à centralização de contratos, alertas automáticos, acompanhamento de vigências e apoio visual à gestão.</p>
+          </div>
+
+          <div class="project-card reveal" style="--delay:.08s;">
+            <div class="card-top">
+              <div class="icon-box">📈</div>
+              <span class="tag tag-blue">Dashboard</span>
             </div>
+            <h3>Indicadores operacionais e gerenciais</h3>
+            <p>Construção de visões analíticas para leitura de cenário, monitoramento de desempenho e suporte à tomada de decisão.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="destaques">
+    <section id="diferenciais">
       <div class="container">
         <div class="section-top reveal">
           <div class="section-kicker">Diferenciais</div>
           <h2 class="section-title">O que fortalece meu perfil</h2>
         </div>
 
-        <div class="highlights-grid">
-          <div class="highlight-card reveal">
+        <div class="feature-grid">
+          <div class="feature-card reveal">
             <h3>Visão de processo</h3>
-            <p>Olhar para fluxo, organização e melhoria contínua, buscando soluções que façam sentido na prática.</p>
+            <p>Leitura de fluxos, organização de etapas e melhoria contínua para soluções mais consistentes.</p>
           </div>
-          <div class="highlight-card reveal" style="--delay:.08s;">
+          <div class="feature-card reveal" style="--delay:.08s;">
             <h3>Automação aplicável</h3>
-            <p>Uso de ferramentas para reduzir retrabalho, padronizar dados e tornar rotinas mais eficientes.</p>
+            <p>Uso de ferramentas para reduzir esforço manual, padronizar dados e tornar rotinas mais eficientes.</p>
           </div>
-          <div class="highlight-card reveal" style="--delay:.16s;">
-            <h3>Dados para gestão</h3>
-            <p>Construção de dashboards e estruturas visuais com foco em clareza, leitura rápida e utilidade real.</p>
+          <div class="feature-card reveal" style="--delay:.16s;">
+            <h3>Dados + Cloud</h3>
+            <p>Dashboards, indicadores e visão de cloud computing para soluções mais estruturadas e escaláveis.</p>
           </div>
         </div>
       </div>
@@ -838,34 +825,26 @@
     <section id="skills">
       <div class="container">
         <div class="section-top reveal">
-          <div class="section-kicker">Ferramentas</div>
-          <h2 class="section-title">Skills principais</h2>
+          <div class="section-kicker">Skills</div>
+          <h2 class="section-title">Ferramentas que uso para entregar valor</h2>
         </div>
 
         <div class="skills-grid">
           <div class="skill-card reveal">
-            <strong>Power BI</strong>
-            <p>Dashboards, indicadores e visualização voltada ao acompanhamento gerencial.</p>
-          </div>
-          <div class="skill-card reveal" style="--delay:.06s;">
-            <strong>Looker Studio</strong>
-            <p>Painéis visuais, leitura prática de dados e organização de métricas.</p>
-          </div>
-          <div class="skill-card reveal" style="--delay:.12s;">
-            <strong>Google Sheets / Excel</strong>
-            <p>Estruturação de bases, controles operacionais e apoio a análises.</p>
+            <strong>AWS Cloud</strong>
+            <p>Fundamentos de cloud computing, arquitetura básica e serviços essenciais da AWS aplicados ao contexto de dados.</p>
           </div>
           <div class="skill-card reveal">
-            <strong>Apps Script</strong>
-            <p>Automação de tarefas, alertas, regras de negócio e integração entre rotinas.</p>
+            <strong>Power BI</strong>
+            <p>Dashboards interativos, indicadores e visualizações voltadas ao acompanhamento gerencial.</p>
           </div>
-          <div class="skill-card reveal" style="--delay:.06s;">
-            <strong>SQL</strong>
-            <p>Consultas, organização de dados e apoio à construção de análises.</p>
+          <div class="skill-card reveal" style="--delay:.08s;">
+            <strong>Looker Studio</strong>
+            <p>Painéis visuais e monitoramento de métricas com foco em leitura simples e rápida.</p>
           </div>
-          <div class="skill-card reveal" style="--delay:.12s;">
-            <strong>APIs / Integrações</strong>
-            <p>Uso de dados externos e conexão entre fontes para enriquecer visualizações.</p>
+          <div class="skill-card reveal" style="--delay:.16s;">
+            <strong>Apps Script + Google Sheets</strong>
+            <p>Automação de rotinas, regras de negócio, integrações e estruturação de bases.</p>
           </div>
         </div>
       </div>
@@ -880,29 +859,28 @@
 
         <div class="about-grid">
           <div class="profile-card reveal">
-            <div class="avatar">AP</div>
+            <div class="profile-avatar">AP</div>
             <h3>Alexandra de Paula</h3>
             <div class="profile-role">Dados, BI e Automação</div>
             <div class="profile-links">
-              <a href="https://www.linkedin.com/in/alexandra-de-paula-9043652b6/" target="_blank" class="chip-link">LinkedIn ↗</a>
-              <a href="https://github.com/Alepaulas" target="_blank" class="chip-link">GitHub ↗</a>
-              <a href="mailto:alexandra.paula@aluno.ufca.edu.br" class="chip-link">E-mail</a>
+              <a class="chip" href="https://www.linkedin.com/in/alexandra-de-paula-9043652b6/" target="_blank">LinkedIn ↗</a>
+              <a class="chip" href="https://github.com/Alepaulas" target="_blank">GitHub ↗</a>
+              <a class="chip" href="mailto:alexandra.paula@aluno.ufca.edu.br">E-mail</a>
             </div>
           </div>
 
           <div class="about-card reveal" style="--delay:.08s;">
-            <p>Tenho foco em transformar dados e rotinas em soluções mais organizadas, visuais e úteis para acompanhamento e tomada de decisão.</p>
-            <p>Minha experiência reúne análise de processos, construção de dashboards, automação de tarefas e estruturação de informações para uso gerencial e operacional.</p>
-            <p>Busco criar entregas bonitas, mas principalmente funcionais, objetivas e aplicáveis ao contexto real de trabalho.</p>
+            <p>Tenho foco em transformar dados, processos e rotinas em soluções mais organizadas, visuais e úteis para acompanhamento e tomada de decisão.</p>
+            <p>Minha experiência reúne análise de processos, dashboards, automação de tarefas e estruturação de informações para uso gerencial e operacional.</p>
+            <p>Busco criar entregas modernas, funcionais e com leitura clara, unindo estética, contexto e aplicabilidade real.</p>
             <div class="pill-wrap">
               <span class="pill">Power BI</span>
               <span class="pill">Looker Studio</span>
-              <span class="pill">Google Sheets</span>
-              <span class="pill">Apps Script</span>
               <span class="pill">SQL</span>
+              <span class="pill">Apps Script</span>
               <span class="pill">Automação</span>
-              <span class="pill">Dashboards</span>
               <span class="pill">Indicadores</span>
+              <span class="pill">AWS Cloud ☁️</span>
             </div>
           </div>
         </div>
@@ -913,10 +891,10 @@
       <div class="container">
         <div class="cta-box reveal">
           <div>
-            <h2>Vamos conversar sobre dados, projetos e oportunidades?</h2>
-            <p>Estou aberta a oportunidades em dados, BI, automação e funções que envolvam melhoria de processos e apoio à gestão.</p>
+            <h2>Dados, tecnologia e decisões que funcionam</h2>
+            <p>Projetos pensados com estratégia, clareza e execução eficiente — do dado à decisão, com foco no que realmente importa.</p>
           </div>
-          <a href="mailto:alexandra.paula@aluno.ufca.edu.br" class="btn btn-light">Entrar em contato</a>
+          <a href="mailto:alexandra.paula@aluno.ufca.edu.br" class="btn btn-primary">Entrar em contato</a>
         </div>
       </div>
     </section>
